@@ -1,0 +1,31 @@
+--- Resumen de Metricas de Modelos V4 ---
+
+Random Forest (RF):
+  - Accuracy: 0.9167
+  - F1-Score (Weighted): 0.9105
+  - AUC: 1.0000
+  - Recall Hipofuncion: 0.8000
+
+Support Vector Machine (SVM):
+  - Accuracy: 0.7500
+  - F1-Score (Weighted): 0.7605
+  - AUC: 0.8519
+  - Recall Hipofuncion: 0.5714
+
+Logistic Regression (LR):
+  - Accuracy: 0.8333
+  - F1-Score (Weighted): 0.8000
+  - AUC: 1.0000
+  - Recall Hipofuncion: 0.5000
+
+XGBoost (XGB):
+  - Accuracy: 0.9167
+  - F1-Score (Weighted): 0.9105
+  - AUC: 1.0000
+  - Recall Hipofuncion: 0.8000
+
+
+--- Resumen Tests Estadisticos Pre/Post ---
+
+Calidad de Vida (EQ-5D) - Wilcoxon p-value: 0.0014
+Grado Periodontal - Paired t-test p-value: nan

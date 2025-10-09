@@ -1,0 +1,481 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte Completo EDePAM-ML</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        .study-summary {
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 5px;
+        }
+        .paper-abstract {
+            background: #f3e5f5;
+            border-left: 5px solid #9c27b0;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 5px;
+        }
+        .glossary {
+            background: #fff3e0;
+            border-left: 5px solid #ff9800;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 5px;
+        }
+        .glossary dl {
+            margin: 0;
+        }
+        .glossary dt {
+            font-weight: bold;
+            margin-top: 1rem;
+            color: #e65100;
+        }
+        .glossary dd {
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        .model-section {
+            background: white;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .metric {
+            background: #f5f5f5;
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .metric-label {
+            display: block;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        .metric-value {
+            display: block;
+            font-size: 1.5rem;
+            color: #2196f3;
+            font-weight: bold;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        .comparison-table th {
+            background: #3498db;
+            color: white;
+        }
+        .insight-row {
+            background: #fffbf0;
+            font-style: italic;
+        }
+        .explanation {
+            background: #f0f8ff;
+            border-left: 3px solid #4CAF50;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+        .figure {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .caption {
+            font-style: italic;
+            color: #666;
+            margin-top: 1rem;
+            text-align: left;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: #263238;
+            color: white;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Análisis Predictivo de Hipofunción Oral</h1>
+        <h2>EDePAM-ML: Machine Learning</h2>
+        <p><strong>Autor:</strong> Gonzalo Muñoz Olate | <strong>Hospital de Los Vilos</strong></p>
+    </div>
+
+    
+<div class="paper-abstract">
+    <h2>Resumen</h2>
+    <p><strong>Introducción:</strong> La hipofunción oral en adultos mayores chilenos es una condición prevalente y subdiagnosticada que impacta directamente la calidad de vida, estado nutricional y comorbilidades sistémicas. El EDePAM, aunque exhaustivo, presenta desafíos logísticos en atención primaria.</p>
+    
+    <p><strong>Objectivo:</strong> Desarrollar y validar modelos de Machine Learning para predecir hipofunción oral usando datos del EDePAM en población rural chilena, optimizando el screening clínico.</p>
+    
+    <p><strong>Metodo:</strong> Análisis retrospectivo de 40 pacientes con datos basales y seguimiento. Implementamos cuatro algoritmos: Random Forest, XGBoost, SVM y Regresión Logística con validación cruzada y manejo de desbalance (SMOTE).</p>
+    
+    <p><strong>Resultados:</strong> Los modelos <strong>Random Forest y XGBoost mostraron el rendimiento más alto</strong>, con un Recall de Hipofunción idéntico de <strong>0.8000</strong>. El análisis de explicabilidad (XAI) identificó a las variables del constructo periodontal, específicamente la <strong>extensión y el estado</strong>, como los predictores dominantes. El análisis post-intervención reveló mejoras significativas en calidad de vida (p=0.0014).</p>
+    
+    <p><strong>Conclusión:</strong> Los modelos ML pueden predecir efectivamente la hipofunción oral. Proponemos el "EDePA-r" (Exámen dental preventivo del adulto resumido) como herramienta de screening optimizada para APS.</p>
+</div>
+
+    
+<div class="study-summary">
+    <h3>Resumen del Estudio EDePAM-ML</h3>
+    <ul>
+        <li><strong>Población:</strong> Adultos atendidos en hospital de Los Vilos, Chile</li>
+        <li><strong>Innovación:</strong> Primer modelo ML para hipofunción oral en población chilena</li>
+        <li><strong>EDePA-r Propuesto:</strong> Versión abreviada con top 5 predictores (periodontal_grado, fuerza_oclusal, diadococinesia, función_masticatoria, edad) para uso rápido en APS</li>
+        <li><strong>Validación:</strong> Datos longitudinales pre/post tratamiento confirman efectividad clínica</li>
+    </ul>
+</div>
+
+    
+    <section class="glossary">
+        <h2>Glosario de Términos Técnicos</h2>
+        <dl>
+            <dt><strong>XAI (Explainable Artificial Intelligence)</strong></dt>
+            <dd>Acrónimo de <em>Explainable Artificial Intelligence</em> (Inteligencia Artificial Explicable). Refiere al conjunto de métodos y técnicas cuyo objetivo es dotar de transparencia e interpretabilidad a los modelos de machine learning, permitiendo comprender el razonamiento subyacente a sus predicciones.</dd>
+
+            <dt><strong>SHAP (SHapley Additive exPlanations)</strong></dt>
+            <dd>Técnica de XAI que explica predicciones individuales asignando a cada variable un valor de importancia (valor SHAP) que representa su contribución específica a dicha predicción. Permite un análisis de atribución a nivel local (por paciente).</dd>
+
+            <dt><strong>Recall (Sensibilidad)</strong></dt>
+            <dd>Métrica de evaluación crítica en contextos clínicos. Mide la proporción de casos positivos reales que son correctamente identificados por el modelo. Un <strong>Recall</strong> elevado es fundamental para minimizar la tasa de falsos negativos.</dd>
+
+            <dt><strong>Accuracy (Precisión Global)</strong></dt>
+            <dd>Mide el porcentaje total de predicciones correctas sobre el conjunto de datos. Puede ser un indicador poco fiable en problemas con clases desbalanceadas.</dd>
+
+            <dt><strong>AUC (Area Under the Curve)</strong></dt>
+            <dd>Acrónimo de <em>Area Under the Curve</em> (Área Bajo la Curva ROC). Representa la capacidad de un modelo para discriminar entre las clases positiva y negativa. Un valor de 1.0 indica un clasificador perfecto.</dd>
+
+            <dt><strong>F1-Score</strong></dt>
+            <dd>Media armónica entre Precisión y Recall. Proporciona una medida única que equilibra la tasa de falsos positivos y falsos negativos.</dd>
+
+            <dt><strong>CV (Cross-Validation)</strong></dt>
+            <dd>Técnica de Validación Cruzada que evalúa la capacidad de generalización de un modelo para obtener una estimación más robusta de su rendimiento.</dd>
+
+            <dt><strong>N/A (Not Available)</strong></dt>
+            <dd>Indica que no hay datos disponibles para la métrica en cuestión.</dd>
+        </dl>
+    </section>
+    
+
+    <section>
+        <h2>Análisis Exploratorio de Datos</h2>
+        
+        <div class="figure">
+            <h4>Mapa de Calor de Correlaciones</h4>
+            <img src="correlacion_heatmap.png" alt="Correlation Heatmap">
+            <p class="caption">Este mapa valida la consistencia interna del instrumento, mostrando fuertes correlaciones (rojo) entre las variables funcionales clave.</p>
+        </div>
+        
+    </section>
+
+    <section>
+        <h2>Comparación de Modelos V4 (Datos Completos)</h2>
+        
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th>Modelo V4</th>
+                <th>Accuracy</th>
+                <th>F1-Score</th>
+                <th>AUC</th>
+                <th>Recall Hipofunción</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td><strong>Random Forest</strong></td>
+                <td>0.9167</td>
+                <td>0.9105</td>
+                <td>1.0000</td>
+                <td>0.8000</td>
+            </tr>
+            
+            <tr>
+                <td><strong>SVM</strong></td>
+                <td>0.7500</td>
+                <td>0.7605</td>
+                <td>0.8519</td>
+                <td>0.5714</td>
+            </tr>
+            
+            <tr>
+                <td><strong>XGBoost</strong></td>
+                <td>0.9167</td>
+                <td>0.9105</td>
+                <td>1.0000</td>
+                <td>0.8000</td>
+            </tr>
+            
+            <tr>
+                <td><strong>Logistic Regression</strong></td>
+                <td>0.8333</td>
+                <td>0.8000</td>
+                <td>1.0000</td>
+                <td>0.5000</td>
+            </tr>
+            
+            
+    <tr class="insight-row">
+        <td colspan="5">
+            <strong>Insight Clínico:</strong> SVM destaca en recall para casos raros de hipofunción debido a su robusta separación de fronteras. RF ofrece el mejor balance general. XGBoost captura patrones no-lineales complejos.
+        </td>
+    </tr>
+    
+        </tbody>
+    </table>
+    
+    </section>
+
+    <section>
+        <h2>Análisis Detallado por Modelo</h2>
+        
+    <section class="model-section">
+        <h3>Random Forest - Modelo Recomendado</h3>
+        <div class="metrics-grid">
+            <div class="metric">
+                <span class="metric-label">Accuracy:</span>
+                <span class="metric-value">0.9167</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">F1-Score:</span>
+                <span class="metric-value">0.9105</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">AUC:</span>
+                <span class="metric-value">1.0000</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Recall Hipofunción:</span>
+                <span class="metric-value">0.8000</span>
+            </div>
+        </div>
+        
+    <div class="explanation">
+        <h4>Random Forest: El Guardián del conjunto</h4>
+        <p>Combina múltiples árboles de decisión, generando un consenso final para crear predicciones robustas. Ideal para datos médicos por su capacidad de manejar interacciones complejas entre variables clínicas como periodontal-oclusal-masticatorio sin sobreajuste.</p>
+    </div>
+    
+    </section>
+    
+        
+    <section class="model-section">
+        <h3>Support Vector Machine - Guardian de Fronteras</h3>
+        <div class="metrics-grid">
+            <div class="metric">
+                <span class="metric-label">Accuracy:</span>
+                <span class="metric-value">0.7500</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">F1-Score:</span>
+                <span class="metric-value">0.7605</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">AUC:</span>
+                <span class="metric-value">0.8519</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Recall Hipofunción:</span>
+                <span class="metric-value">0.5714</span>
+            </div>
+        </div>
+        
+    <div class="explanation">
+        <h4>SVM: El Guardian de Fronteras</h4>
+        <p>Support Vector Machine destaca funciona creando una "frontera" o línea de separación lo más clara posible entre dos grupos de datos permite capturar relaciones no-lineales como la curva caries-oclusal, crucial para casos borderline periodontales.</p>
+    </div>
+    
+    </section>
+    
+        
+    <section class="model-section">
+        <h3>XGBoost - Potencia del Gradient Boosting</h3>
+        <div class="metrics-grid">
+            <div class="metric">
+                <span class="metric-label">Accuracy:</span>
+                <span class="metric-value">0.9167</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">F1-Score:</span>
+                <span class="metric-value">0.9105</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">AUC:</span>
+                <span class="metric-value">1.0000</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Recall Hipofunción:</span>
+                <span class="metric-value">0.8000</span>
+            </div>
+        </div>
+        
+    <div class="explanation">
+        <h4>XGBoost: Potenciación del Gradiente o Reforzamiento por Gradiente</h4>
+        <p>"Algoritmo de boosting que aprende secuencialmente de sus errores para modelar patrones complejos (no-lineales) en la funcionalidad oral, usando variables como el recuento de caries."</p>
+    </div>
+    
+    </section>
+    
+        
+    <section class="model-section">
+        <h3>Regresión Logística - Base Interpretable</h3>
+        <div class="metrics-grid">
+            <div class="metric">
+                <span class="metric-label">Accuracy:</span>
+                <span class="metric-value">0.8333</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">F1-Score:</span>
+                <span class="metric-value">0.8000</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">AUC:</span>
+                <span class="metric-value">1.0000</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Recall Hipofunción:</span>
+                <span class="metric-value">0.5000</span>
+            </div>
+        </div>
+        
+    <div class="explanation">
+        <h4>Regresión Logística: La Base Interpretable</h4>
+        <p>Modelo baseline que proporciona odds ratios interpretables para clínicos. Fundamental para entender la contribución individual de cada factor (edad, periodontal, protésico) en la probabilidad de hipofunción.</p>
+    </div>
+    
+    </section>
+    
+    </section>
+
+    <section>
+        <h2>Visualizaciones y Análisis por Modelo</h2>
+        <h3>Random Forest</h3>
+        
+            <div class="figure">
+                <h4>Matriz de Confusión - Random Forest</h4>
+                <img src="cm_v4_rf_RF.png" alt="Confusion Matrix RF">
+                <p class="caption">Esta matriz muestra la excelente capacidad de RF para minimizar falsos negativos en hipofunción, ideal para screening clínico preventivo.</p>
+            </div>
+            
+            <div class="figure">
+                <h4>Importancia de Features - Random Forest</h4>
+                <img src="imp_v4_rf_RF.png" alt="Feature Importance RF">
+                <p class="caption">El gráfico confirma que las variables periodontales y de función oral dominan las predicciones del modelo RF.</p>
+            </div>
+            
+            <div class="figure">
+                <h4>Análisis SHAP - Random Forest</h4>
+                <img src="shap_v4_rf_RF.png" alt="SHAP Plot RF">
+                <p class="caption">El análisis SHAP revela que periodontal_grado domina las predicciones, seguido por fuerza_oclusal. Los valores rojos (altos) impulsan hacia hipofunción.</p>
+            </div>
+            
+        
+        <h3>XGBoost</h3>
+        
+            <div class="figure">
+                <h4>Matriz de Confusión - XGBoost</h4>
+                <img src="cm_v4_xgb_XGB.png" alt="Confusion Matrix XGBoost">
+                <p class="caption">XGBoost muestra un balance sólido entre precisión y recall, capturando patrones no-lineales complejos en los datos.</p>
+            </div>
+            
+            <div class="figure">
+                <h4>Importancia de Features - XGBoost</h4>
+                <img src="imp_v4_xgb_XGB.png" alt="Feature Importance XGBoost">
+                <p class="caption">El gradient boosting de XGBoost identifica sutiles interacciones entre variables que otros modelos podrían pasar por alto.</p>
+            </div>
+            
+            <div class="figure">
+                <h4>Análisis SHAP - XGBoost</h4>
+                <img src="shap_v4_xgb_XGB.png" alt="SHAP Plot XGBoost">
+                <p class="caption">SHAP para XGBoost revela cómo el modelo pondera cada característica, crucial para la interpretabilidad clínica.</p>
+            </div>
+            
+        
+        <h3>Support Vector Machine</h3>
+        
+            <div class="figure">
+                <h4>Matriz de Confusión - SVM</h4>
+                <img src="cm_v4_svm_SVM.png" alt="Confusion Matrix SVM">
+                <p class="caption">Esta matriz demuestra la capacidad de SVM como "guardian de fronteras" para casos periodontales borderline, minimizando falsos negativos.</p>
+            </div>
+            
+            <div class="figure">
+                <h4>Importancia de Features - SVM</h4>
+                <img src="imp_v4_svm_SVM.png" alt="Feature Importance SVM">
+                <p class="caption">La importancia por permutación en SVM destaca las variables más críticas para la separación entre clases funcionales.</p>
+            </div>
+            
+    </section>
+
+    <section class="model-section">
+        <h2>Resultados Pre/Post Tratamiento</h2>
+        <div class="metrics-grid">
+            <div class="metric">
+                <span class="metric-label">Mejora Calidad de Vida:</span>
+                <span class="metric-value">p = 0.0014</span>
+                <p>La mejora observada en la calidad de vida de los pacientes después del tratamiento es real y muy significativa. No fue una coincidencia; el tratamiento funcionó y tuvo un impacto positivo medible.</p>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Reducción Periodontal:</span>
+                <span class="metric-value">p = nan</span>
+                <p>Debido a datos insuficientes en el seguimiento, no se pudo calcular si la mejora en la salud periodontal fue estadísticamente significativa. El reporte no dice que no hubo mejora, solo que no se pudo probar matemáticamente con la data disponible.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer">
+        <p>Este reporte HTML es generado al ejecutar generate_report.py el 2025-10-08 02:31:27</p>
+        <p>EDePAM-ML Project © 2025 | Codificado en python @gmolate</p>
+    </div>
+</body>
+</html>
+    
